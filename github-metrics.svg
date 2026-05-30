@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="260">
+  <rect width="800" height="260" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="50" y="22" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" font-weight="600" fill="#58a6ff">Contributions</text>
+  <text x="780" y="22" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" fill="#8b949e">generating...</text>
+  <line x1="50" y1="45" x2="50" y2="215" stroke="#30363d" stroke-width="1"/>
+  <line x1="50" y1="215" x2="780" y2="215" stroke="#30363d" stroke-width="1"/>
+  <text x="415" y="138" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" fill="#30363d">Chart will appear after first GitHub Actions run</text>
+</svg>

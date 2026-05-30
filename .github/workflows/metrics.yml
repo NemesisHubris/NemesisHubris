@@ -1,0 +1,157 @@
+name: GitHub Metrics
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate contribution bar chart
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request, json, os
+          from datetime import datetime
+
+          token = os.environ['GH_TOKEN']
+          username = 'nemesishubris'
+
+          query = """
+          query($login: String!) {
+            user(login: $login) {
+              contributionsCollection {
+                contributionCalendar {
+                  totalContributions
+                  weeks {
+                    contributionDays {
+                      contributionCount
+                      date
+                    }
+                  }
+                }
+              }
+            }
+          }
+          """
+
+          payload = json.dumps({'query': query, 'variables': {'login': username}}).encode()
+          req = urllib.request.Request(
+            'https://api.github.com/graphql',
+            data=payload,
+            headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+          )
+          with urllib.request.urlopen(req) as r:
+            data = json.loads(r.read())
+
+          calendar = data['data']['user']['contributionsCollection']['contributionCalendar']
+          total = calendar['totalContributions']
+          weeks = calendar['weeks']
+
+          weekly = []
+          for week in weeks:
+            count = sum(d['contributionCount'] for d in week['contributionDays'])
+            date  = week['contributionDays'][0]['date']
+            weekly.append((date, count))
+
+          # Chart layout
+          SVG_W, SVG_H = 800, 260
+          PAD_L, PAD_R, PAD_T, PAD_B = 50, 20, 45, 45
+          CW = SVG_W - PAD_L - PAD_R
+          CH = SVG_H - PAD_T - PAD_B
+
+          n = len(weekly)
+          max_val = max(c for _, c in weekly) or 1
+          gap = 2
+          bw = (CW - gap * (n - 1)) / n
+
+          def color(c):
+            if c == 0:   return '#161b22'
+            if c < max_val * 0.25: return '#0e4429'
+            if c < max_val * 0.50: return '#006d32'
+            if c < max_val * 0.75: return '#26a641'
+            return '#39d353'
+
+          bars = []
+          for i, (date, c) in enumerate(weekly):
+            x  = PAD_L + i * (bw + gap)
+            bh = max(1, (c / max_val) * CH)
+            y  = PAD_T + CH - bh
+            bars.append(
+              f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw:.1f}" height="{bh:.1f}" '
+              f'fill="{color(c)}" rx="1">'
+              f'<title>{date}: {c} contributions</title></rect>'
+            )
+
+          # Y-axis grid + labels
+          grid, ylabels = [], []
+          for i in range(5):
+            val = int(max_val * i / 4)
+            y   = PAD_T + CH - (val / max_val) * CH
+            grid.append(
+              f'<line x1="{PAD_L}" y1="{y:.1f}" x2="{SVG_W-PAD_R}" y2="{y:.1f}" '
+              f'stroke="#21262d" stroke-width="1" stroke-dasharray="4,4"/>'
+            )
+            ylabels.append(
+              f'<text x="{PAD_L-8}" y="{y+4:.1f}" text-anchor="end" '
+              f'font-family="monospace" font-size="11" fill="#484f58">{val}</text>'
+            )
+
+          # X-axis month labels
+          xlabels = []
+          seen = set()
+          for i, (date, _) in enumerate(weekly):
+            ym = date[:7]
+            if ym not in seen:
+              seen.add(ym)
+              x = PAD_L + i * (bw + gap) + bw / 2
+              label = datetime.strptime(date, '%Y-%m-%d').strftime('%b')
+              xlabels.append(
+                f'<text x="{x:.1f}" y="{SVG_H-8}" text-anchor="middle" '
+                f'font-family="Segoe UI,Ubuntu,sans-serif" font-size="11" fill="#484f58">{label}</text>'
+              )
+
+          ax_y_top  = PAD_T
+          ax_y_bot  = PAD_T + CH
+          ax_x_left = PAD_L
+          ax_x_right= SVG_W - PAD_R
+
+          svg = f"""<svg xmlns="http://www.w3.org/2000/svg" width="{SVG_W}" height="{SVG_H}">
+            <rect width="{SVG_W}" height="{SVG_H}" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+
+            <text x="{PAD_L}" y="22" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" font-weight="600" fill="#58a6ff">Contributions</text>
+            <text x="{SVG_W - PAD_R}" y="22" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" fill="#8b949e">{total:,} this year</text>
+
+            {''.join(grid)}
+            {''.join(bars)}
+
+            <line x1="{ax_x_left}" y1="{ax_y_top}" x2="{ax_x_left}" y2="{ax_y_bot}" stroke="#30363d" stroke-width="1"/>
+            <line x1="{ax_x_left}" y1="{ax_y_bot}" x2="{ax_x_right}" y2="{ax_y_bot}" stroke="#30363d" stroke-width="1"/>
+
+            {''.join(ylabels)}
+            {''.join(xlabels)}
+          </svg>"""
+
+          with open('github-metrics.svg', 'w') as f:
+            f.write(svg)
+
+          print(f"Chart generated: {n} weeks, peak={max_val}, total={total}")
+          PYEOF
+
+      - name: Commit chart
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add github-metrics.svg
+          git diff --staged --quiet || git commit -m "chore: update contribution chart"
+          git push
