@@ -3,10 +3,6 @@
 </p>
 
 <p align="center">
-  <img src="./profile/chips.svg" alt="Kindle jailbreaking, reverse engineering, security research, home server, Fedora, biochemistry" width="100%" />
-</p>
-
-<p align="center">
   <a href="https://ko-fi.com/kindlemodshelfguy"><img src="./profile/kofi.svg" alt="Support me on Ko-fi" /></a>
 </p>
 
