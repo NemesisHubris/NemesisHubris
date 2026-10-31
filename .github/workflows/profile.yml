@@ -1,0 +1,66 @@
+name: Profile cards
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main, readme-refresh]
+    paths: ['.github/workflows/profile.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: true
+
+env:
+  # Optional: add a classic PAT (repo + read:user) as secret STATS_TOKEN to count private repos.
+  STATS_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
+  CARD_OPTS: bg_color=0d1117&border_color=30363d&title_color=a371f7&icon_color=58a6ff&text_color=c9d1d9&ring_color=a371f7&hide_border=false&border_radius=10
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stats card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: username=${{ github.repository_owner }}&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&${{ env.CARD_OPTS }}
+          path: profile/stats.svg
+          token: ${{ env.STATS_TOKEN }}
+          fail_on_error: true
+
+      - name: Top languages card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: username=${{ github.repository_owner }}&layout=donut-vertical&langs_count=8&${{ env.CARD_OPTS }}
+          path: profile/top-langs.svg
+          token: ${{ env.STATS_TOKEN }}
+          fail_on_error: true
+
+      - name: Contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            profile/snake.svg?color_snake=a371f7&color_dots=#161b22,#0e4429,#006d32,#26a641,#39d353
+            profile/snake-dark.svg?palette=github-dark&color_snake=a371f7
+
+      - name: Contribution chart and streaks
+        env:
+          GH_TOKEN: ${{ env.STATS_TOKEN }}
+        run: python3 profile/build_chart.py
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/*.svg
+          git diff --staged --quiet || git commit -m "chore: refresh profile cards"
+          git push

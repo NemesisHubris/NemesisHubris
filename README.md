@@ -1,11 +1,14 @@
-<div align="center">
-  <h1>Hi, I'm Nemesis Hubris</h1>
-  <p><strong>Biochemistry Student | Modder | Fedora User</strong></p>
+<p align="center">
+  <img src="./profile/hero.svg" alt="Nemesis Hubris" width="100%" />
+</p>
 
-  <a href="https://ko-fi.com/kindlemodshelfguy" target="_blank">
-    <img src="https://img.shields.io/badge/Support_Me_on_Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Support Me on Ko-fi" />
-  </a>
-</div>
+<p align="center">
+  <img src="./profile/chips.svg" alt="Kindle jailbreaking, reverse engineering, security research, home server, Fedora, biochemistry" width="100%" />
+</p>
+
+<p align="center">
+  <a href="https://ko-fi.com/kindlemodshelfguy"><img src="./profile/kofi.svg" alt="Support me on Ko-fi" /></a>
+</p>
 
 ---
 
@@ -19,16 +22,27 @@
 
 ---
 
-### Activity & Stats
+### Stats
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=nemesishubris&theme=react-dark&bg_color=0d1117&hide_border=true" width="100%" alt="Nemesis Hubris's Activity Graph" />
+  <img src="./profile/streak.svg" alt="Contribution streaks" width="100%" />
 </p>
 
 <p align="center">
-  <img src="./github-metrics.svg" alt="Nemesis Hubris's Contribution Chart" />
+  <img src="./profile/stats.svg" alt="GitHub stats" height="195" />
+  <img src="./profile/top-langs.svg" alt="Top languages" height="195" />
 </p>
 
-<div align="center">
-  <img src="./profile-views.svg" alt="Profile Views" />
-</div>
+<p align="center">
+  <img src="./profile/contributions.svg" alt="Contributions per week" width="100%" />
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./profile/snake.svg" />
+    <img alt="Contribution snake" src="./profile/snake-dark.svg" width="100%" />
+  </picture>
+</p>
+
+<sub align="center">Cards rebuild every 6 hours by a GitHub Action. Nothing here depends on an outside server.</sub>
