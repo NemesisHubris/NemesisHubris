@@ -40,13 +40,16 @@ def bars(cal):
         y = pt + ch - v / top * ch
         out.append(f'<line x1="{pl}" y1="{y:.1f}" x2="{W - pr}" y2="{y:.1f}" stroke="#21262d" stroke-dasharray="4,4"/>')
         out.append(f'<text x="{pl - 8}" y="{y + 4:.1f}" text-anchor="end" font-family="monospace" font-size="11" fill="#484f58">{v}</text>')
-    seen = set()
+    seen, last_x = set(), -99
     for i, (d, c) in enumerate(weekly):
         x = pl + i * (bw + gap)
         h = max(1, c / top * ch)
         out.append(f'<rect x="{x:.1f}" y="{pt + ch - h:.1f}" width="{bw:.1f}" height="{h:.1f}" fill="{color(c)}" rx="1.5"><title>{d}: {c}</title></rect>')
         if d[:7] not in seen:
             seen.add(d[:7])
+            if x - last_x < 28:
+                continue
+            last_x = x
             out.append(f'<text x="{x + bw / 2:.1f}" y="{H - 14}" text-anchor="middle" font-family="{FONT}" font-size="11" fill="#484f58">{datetime.strptime(d, "%Y-%m-%d").strftime("%b")}</text>')
     out.append("</svg>")
     return "\n".join(out)

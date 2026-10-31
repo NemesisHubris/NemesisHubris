@@ -18,7 +18,7 @@ concurrency:
 env:
   # Optional: add a classic PAT (repo + read:user) as secret STATS_TOKEN to count private repos.
   STATS_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
-  CARD_OPTS: bg_color=0d1117&border_color=30363d&title_color=a371f7&icon_color=58a6ff&text_color=c9d1d9&ring_color=a371f7&hide_border=false&border_radius=10
+  CARD_OPTS: bg_color=0d1117&border_color=30363d&title_color=a371f7&icon_color=58a6ff&text_color=c9d1d9&ring_color=a371f7&hide_border=false&border_radius=10&disable_animations=true
 
 jobs:
   cards:
@@ -39,7 +39,7 @@ jobs:
         uses: stats-organization/github-readme-stats-action@v2
         with:
           card: top-langs
-          options: username=${{ github.repository_owner }}&layout=donut-vertical&langs_count=8&${{ env.CARD_OPTS }}
+          options: username=${{ github.repository_owner }}&layout=compact&langs_count=8&card_width=330&hide_progress=false&${{ env.CARD_OPTS }}
           path: profile/top-langs.svg
           token: ${{ env.STATS_TOKEN }}
           fail_on_error: true

@@ -29,8 +29,8 @@
 </p>
 
 <p align="center">
-  <img src="./profile/stats.svg" alt="GitHub stats" height="195" />
-  <img src="./profile/top-langs.svg" alt="Top languages" height="195" />
+  <img src="./profile/stats.svg" alt="GitHub stats" height="180" />
+  <img src="./profile/top-langs.svg" alt="Top languages" height="180" />
 </p>
 
 <p align="center">
