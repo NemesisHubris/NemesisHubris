@@ -6,10 +6,10 @@
 <text x="235" y="70" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">75</text>
 <circle cx="31" cy="90" r="3" fill="#3fb950"/>
 <text x="44" y="94" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" fill="#aab4c3">Commits, last year</text>
-<text x="235" y="94" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">629</text>
+<text x="235" y="94" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">630</text>
 <circle cx="31" cy="114" r="3" fill="#3fb950"/>
 <text x="44" y="118" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" fill="#aab4c3">Pull requests</text>
-<text x="235" y="118" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">69</text>
+<text x="235" y="118" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">68</text>
 <circle cx="31" cy="138" r="3" fill="#3fb950"/>
 <text x="44" y="142" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" fill="#aab4c3">Issues</text>
 <text x="235" y="142" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">27</text>
