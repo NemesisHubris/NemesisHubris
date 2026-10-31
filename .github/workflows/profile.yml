@@ -2,7 +2,7 @@ name: Profile cards
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main, readme-refresh]
@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: profile-cards
@@ -23,6 +24,7 @@ env:
 jobs:
   cards:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -54,4 +56,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add profile/*.svg
           git diff --staged --quiet || git commit -m "chore: refresh profile cards"
+          git pull --rebase -q origin ${{ github.ref_name }}
           git push
+
+      - name: Keep schedule alive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable profile.yml || true
