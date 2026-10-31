@@ -40,4 +40,3 @@
   </picture>
 </p>
 
-<sub align="center">Cards rebuild every 6 hours by a GitHub Action. Nothing here depends on an outside server.</sub>
