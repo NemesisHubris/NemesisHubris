@@ -1,28 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0d1117"/><stop offset="0.5" stop-color="#1b1033"/><stop offset="1" stop-color="#0b2540"/>
-      <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="24s" repeatCount="indefinite"/>
-    </linearGradient>
-    <linearGradient id="name" x1="0" x2="1"><stop offset="0" stop-color="#a371f7"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
-    <clipPath id="c"><rect width="800" height="200" rx="14"/></clipPath>
-  </defs>
-  <g clip-path="url(#c)">
-    <rect width="800" height="200" fill="url(#bg)"/>
-    <g fill="#a371f7" opacity=".5">
-      <circle cx="90" cy="40" r="2"><animate attributeName="opacity" values=".1;.9;.1" dur="3s" repeatCount="indefinite"/></circle>
-      <circle cx="700" cy="60" r="2.5"><animate attributeName="opacity" values=".9;.1;.9" dur="4s" repeatCount="indefinite"/></circle>
-      <circle cx="560" cy="165" r="2"><animate attributeName="opacity" values=".1;.9;.1" dur="5s" repeatCount="indefinite"/></circle>
-      <circle cx="210" cy="170" r="1.8"><animate attributeName="opacity" values=".9;.1;.9" dur="3.5s" repeatCount="indefinite"/></circle>
-    </g>
-    <path d="M0 150 C 150 110 250 190 400 150 S 650 110 800 150 V200 H0Z" fill="#58a6ff" opacity=".08">
-      <animate attributeName="d" dur="8s" repeatCount="indefinite" values="M0 150 C 150 110 250 190 400 150 S 650 110 800 150 V200 H0Z;M0 150 C 150 190 250 110 400 150 S 650 190 800 150 V200 H0Z;M0 150 C 150 110 250 190 400 150 S 650 110 800 150 V200 H0Z"/>
-    </path>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="180" viewBox="0 0 800 180">
+  <rect width="800" height="180" rx="14" fill="#070b14" stroke="#1c2433"/>
+  <g fill="#3fb950">
+    <circle cx="90" cy="38" r="2"><animate attributeName="opacity" values=".15;.8;.15" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="715" cy="52" r="2"><animate attributeName="opacity" values=".8;.15;.8" dur="5s" repeatCount="indefinite"/></circle>
+    <circle cx="640" cy="150" r="1.8"><animate attributeName="opacity" values=".15;.8;.15" dur="6s" repeatCount="indefinite"/></circle>
   </g>
-  <rect x=".5" y=".5" width="799" height="199" rx="14" fill="none" stroke="#30363d"/>
-  <text x="400" y="92" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="46" font-weight="700" fill="url(#name)">Nemesis Hubris</text>
-  <text x="400" y="132" text-anchor="middle" font-family="monospace" font-size="17" fill="#c9d1d9">
-    <tspan>Ars longa, vita brevis.</tspan>
-  </text>
-  <text x="400" y="160" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" fill="#8b949e" letter-spacing="2">BIOCHEMISTRY  ·  MODDING  ·  REVERSE ENGINEERING  ·  FEDORA</text>
+  <text x="400" y="86" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="46" font-weight="700" fill="#e6edf3">Nemesis Hubris</text>
+  <text x="400" y="118" text-anchor="middle" font-family="monospace" font-size="16" fill="#3fb950">Ars longa, vita brevis.</text>
+  <line x1="300" y1="134" x2="500" y2="134" stroke="#1c2433"/>
+  <text x="400" y="156" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="12.5" fill="#7d8798" letter-spacing="2">BIOCHEMISTRY  ·  MODDING  ·  REVERSE ENGINEERING  ·  FEDORA</text>
 </svg>

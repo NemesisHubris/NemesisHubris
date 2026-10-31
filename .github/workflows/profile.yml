@@ -18,7 +18,7 @@ concurrency:
 env:
   # Optional: add a classic PAT (repo + read:user) as secret STATS_TOKEN to count private repos.
   STATS_TOKEN: ${{ secrets.STATS_TOKEN || secrets.GITHUB_TOKEN }}
-  CARD_OPTS: bg_color=0d1117&border_color=30363d&title_color=a371f7&icon_color=58a6ff&text_color=c9d1d9&ring_color=a371f7&hide_border=false&border_radius=10&disable_animations=true
+  CARD_OPTS: bg_color=070b14&border_color=1c2433&title_color=e6edf3&icon_color=3fb950&text_color=aab4c3&ring_color=3fb950&hide_border=false&border_radius=10&disable_animations=true
 
 jobs:
   cards:
@@ -49,8 +49,8 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            profile/snake.svg?color_snake=a371f7&color_dots=#161b22,#0e4429,#006d32,#26a641,#39d353
-            profile/snake-dark.svg?palette=github-dark&color_snake=a371f7
+            profile/snake.svg?color_snake=d29922&color_dots=#0f1623,#0e4429,#006d32,#26a641,#39d353
+            profile/snake-dark.svg?palette=github-dark&color_snake=d29922&color_dots=#0f1623,#0e4429,#006d32,#26a641,#39d353
 
       - name: Contribution chart and streaks
         env:
