@@ -14,7 +14,6 @@
 * **Reverse Engineering:** I reverse engineer APIs, Chrome extensions, and closed software ecosystems. I also do security research on HackerOne.
 * **OS & Hardware:** I run a home server and daily drive Fedora on my main machines (As Linus Torvalds does).
 * **Academics:** Currently earning a degree in biochemistry.
-* **AI Take:** Grok is the best. Claude and ChatGPT suck.
 
 ---
 
