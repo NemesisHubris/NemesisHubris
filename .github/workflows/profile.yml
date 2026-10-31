@@ -26,15 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Stats card
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: stats
-          options: username=${{ github.repository_owner }}&show_icons=true&include_all_commits=true&count_private=true&rank_icon=github&${{ env.CARD_OPTS }}
-          path: profile/stats.svg
-          token: ${{ env.STATS_TOKEN }}
-          fail_on_error: true
-
       - name: Top languages card
         uses: stats-organization/github-readme-stats-action@v2
         with:

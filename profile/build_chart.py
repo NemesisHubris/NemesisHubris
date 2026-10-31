@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build profile/contributions.svg (weekly bars) and profile/streak.svg from the GraphQL contribution calendar."""
-import json, os, urllib.request
+import base64, json, os, urllib.request
 from datetime import date, datetime, timedelta
 
 USER = os.environ.get("GITHUB_REPOSITORY_OWNER", "NemesisHubris")
@@ -85,9 +85,50 @@ def streaks(cal):
     return "\n".join(out)
 
 
+STATS_QUERY = """query($login:String!){user(login:$login){avatarUrl(size:200) followers{totalCount}
+repositories(ownerAffiliations:OWNER,isFork:false,first:100,privacy:PUBLIC){totalCount nodes{stargazerCount}}
+pullRequests{totalCount} issues{totalCount}
+contributionsCollection{totalCommitContributions restrictedContributionsCount}}}"""
+
+
+def gql(query):
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        json.dumps({"query": query, "variables": {"login": USER}}).encode(),
+        {"Authorization": "Bearer " + os.environ["GH_TOKEN"], "Content-Type": "application/json"},
+    )
+    return json.load(urllib.request.urlopen(req, timeout=30))["data"]["user"]
+
+
+def stats_card():
+    u = gql(STATS_QUERY)
+    av = base64.b64encode(urllib.request.urlopen(u["avatarUrl"], timeout=30).read()).decode()
+    cc = u["contributionsCollection"]
+    rows = [("Stars earned", sum(r["stargazerCount"] for r in u["repositories"]["nodes"])),
+            ("Commits, last year", cc["totalCommitContributions"] + cc["restrictedContributionsCount"]),
+            ("Pull requests", u["pullRequests"]["totalCount"]),
+            ("Issues", u["issues"]["totalCount"]),
+            ("Followers", u["followers"]["totalCount"])]
+    W, H = 440, 200
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
+           f'<rect width="{W}" height="{H}" rx="10" fill="{BG}" stroke="{BORDER}"/>',
+           f'<text x="26" y="36" font-family="{FONT}" font-size="16" font-weight="600" fill="{TITLE}">GitHub stats</text>']
+    for i, (k, v) in enumerate(rows):
+        y = 70 + i * 24
+        out.append(f'<circle cx="31" cy="{y - 4}" r="3" fill="{ACCENT}"/>')
+        out.append(f'<text x="44" y="{y}" font-family="{FONT}" font-size="13.5" fill="{TEXT}">{k}</text>')
+        out.append(f'<text x="235" y="{y}" text-anchor="end" font-family="{FONT}" font-size="13.5" font-weight="600" fill="{TITLE}">{v:,}</text>')
+    out += [f'<defs><clipPath id="av"><circle cx="340" cy="100" r="52"/></clipPath></defs>',
+            f'<circle cx="340" cy="100" r="58" fill="none" stroke="{ACCENT}" stroke-width="3"/>',
+            f'<image x="288" y="48" width="104" height="104" clip-path="url(#av)" preserveAspectRatio="xMidYMid slice" xlink:href="data:image/jpeg;base64,{av}"/>',
+            "</svg>"]
+    return "\n".join(out)
+
+
 if __name__ == "__main__":
     cal = fetch()
     here = os.path.dirname(os.path.abspath(__file__))
     open(os.path.join(here, "contributions.svg"), "w").write(bars(cal))
     open(os.path.join(here, "streak.svg"), "w").write(streaks(cal))
+    open(os.path.join(here, "stats.svg"), "w").write(stats_card())
     print("ok", cal["totalContributions"])
