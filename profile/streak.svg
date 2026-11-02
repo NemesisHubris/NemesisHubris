@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="130" viewBox="0 0 800 130">
 <rect width="800" height="130" rx="10" fill="#070b14" stroke="#1c2433"/>
-<text x="133" y="62" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="38" font-weight="700" fill="#3fb950">1</text>
+<text x="133" y="62" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="38" font-weight="700" fill="#3fb950">0</text>
 <text x="133" y="88" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13" fill="#aab4c3">Current streak</text>
 <text x="133" y="106" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="11" fill="#7d8798">days</text>
 <text x="400" y="62" text-anchor="middle" font-family="Segoe UI,Ubuntu,sans-serif" font-size="38" font-weight="700" fill="#e6edf3">11</text>
