@@ -3,7 +3,7 @@
 <text x="26" y="36" font-family="Segoe UI,Ubuntu,sans-serif" font-size="16" font-weight="600" fill="#e6edf3">GitHub stats</text>
 <circle cx="31" cy="66" r="3" fill="#3fb950"/>
 <text x="44" y="70" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" fill="#aab4c3">Stars earned</text>
-<text x="235" y="70" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">76</text>
+<text x="235" y="70" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">77</text>
 <circle cx="31" cy="90" r="3" fill="#3fb950"/>
 <text x="44" y="94" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" fill="#aab4c3">Commits, last year</text>
 <text x="235" y="94" text-anchor="end" font-family="Segoe UI,Ubuntu,sans-serif" font-size="13.5" font-weight="600" fill="#e6edf3">617</text>
